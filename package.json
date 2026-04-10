@@ -1,74 +1,15 @@
-import { useState } from "react";
-
-const imagenes = [
-  "/xiaomi1.jpg",
-  "/xiaomi2.jpg",
-  "/xiaomi3.jpg",
-  "/xiaomi4.jpg"
-];
-
-export default function Home() {
-  const [carrito, setCarrito] = useState([]);
-  const [stock, setStock] = useState(4);
-  const [departamento, setDepartamento] = useState("");
-  const [pago, setPago] = useState("contra_entrega");
-
-  const agregar = () => {
-    if (stock <= 0) return;
-    setCarrito([...carrito, 150]);
-    setStock(stock - 1);
-  };
-
-  const envio = departamento === "Guatemala" ? 30 : departamento ? 35 : 0;
-  const subtotal = carrito.reduce((a, b) => a + b, 0);
-  const recargo = pago === "tarjeta" ? subtotal * 0.05 : 0;
-  const total = subtotal + envio + recargo;
-
-  const whatsapp = `https://wa.me/50236867273?text=Hola%20quiero%20hacer%20un%20pedido%0ATotal:%20Q${total}`;
-
-  return (
-    <div style={{ padding: 20, fontFamily: "Arial" }}>
-      <h1>Controles Xiaomi Originales</h1>
-
-      <div style={{ display: "flex", gap: 10 }}>
-        {imagenes.map((img, i) => (
-          <img key={i} src={img} width="120" />
-        ))}
-      </div>
-
-      <h2>Q150</h2>
-      <p>{stock > 0 ? `Stock disponible: ${stock}` : "❌ Agotado"}</p>
-
-      <button onClick={agregar} disabled={stock <= 0}>
-        {stock > 0 ? "Agregar al carrito" : "Sin stock"}
-      </button>
-
-      <hr />
-
-      <h2>Carrito</h2>
-      <p>Productos: {carrito.length}</p>
-
-      <select onChange={(e) => setDepartamento(e.target.value)}>
-        <option value="">Departamento</option>
-        <option value="Guatemala">Guatemala</option>
-        <option value="Interior">Interior</option>
-      </select>
-
-      <br /><br />
-
-      <select onChange={(e) => setPago(e.target.value)}>
-        <option value="contra_entrega">Contra entrega</option>
-        <option value="transferencia">Transferencia</option>
-        <option value="tarjeta">Tarjeta (+5%)</option>
-      </select>
-
-      <p>Envío: Q{envio}</p>
-      <p>Recargo: Q{recargo.toFixed(2)}</p>
-      <h3>Total: Q{total.toFixed(2)}</h3>
-
-      <a href={whatsapp} target="_blank">
-        <button>Finalizar pedido por WhatsApp</button>
-      </a>
-    </div>
-  );
+{
+  "name": "tienda-xiaomi",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
 }
